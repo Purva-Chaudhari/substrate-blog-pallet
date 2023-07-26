@@ -1,12 +1,5 @@
-# Substrate Node Template
-
-A fresh [Substrate](https://substrate.io/) node, ready for hacking :rocket:
-
-A standalone version of this template is available for each release of Polkadot in the [Substrate Developer Hub Parachain Template](https://github.com/substrate-developer-hub/substrate-parachain-template/) repository.
-The parachain template is generated directly at each Polkadot release branch from the [Node Template in Substrate](https://github.com/paritytech/substrate/tree/master/bin/node-template) upstream
-
-It is usually best to use the standalone version to start a new project.
-All bugs, suggestions, and feature requests should be made upstream in the [Substrate](https://github.com/paritytech/substrate/tree/master/bin/node-template) repository.
+# Substrate template for contract pallet
+A simple substrate template with contract pallet added to [default node template](https://github.com/substrate-developer-hub/substrate-node-template). Test it around with the sample flipper contract added in the ink folder on [Contract-UI](https://github.com/paritytech/contracts-ui)
 
 ## Getting Started
 
