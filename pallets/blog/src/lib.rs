@@ -63,6 +63,7 @@ pub mod pallet {
         BlogPostCreated(Vec<u8>, T::AccountId, T::Hash),
         BlogPostCommentCreated(Vec<u8>, T::AccountId, T::Hash),
         Tipped(T::AccountId, T::Hash),
+		Myevent(bool),
 	}
 
 	// Errors inform users that something went wrong.
@@ -176,6 +177,14 @@ pub mod pallet {
 
 				Ok(())
 		}
+		#[pallet::weight(500)]
+		pub fn simpleevent(origin: OriginFor<T>)->DispatchResult{
+			let state = true;
+			Self::deposit_event(Event::Myevent(state));
+
+			Ok(())
+		}
+		
 	}
 	
 }

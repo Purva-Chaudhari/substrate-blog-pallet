@@ -25,6 +25,8 @@ use sp_version::RuntimeVersion;
 use frame_system::{ limits::{BlockLength, BlockWeights},EnsureRoot, EnsureRootWithSuccess, EnsureSigned, EnsureSignedBy, EnsureWithSuccess};
 #[cfg(feature = "runtime-benchmarks")]
 use pallet_contracts::NoopMigration;
+use pallet_blog::Pallet as CallBlog;
+use sp_runtime::AccountId32;
 
 // A few exports that help ease life for downstream crates.
 pub use frame_support::{
@@ -615,11 +617,11 @@ impl_runtime_apis! {
 			TransactionPayment::length_to_fee(length)
 		}
 	}
-
+	#[frame_support::pallet]
 	impl pallet_contracts::ContractsApi<Block, AccountId, Balance, BlockNumber, Hash> for Runtime
 	{
-		fn call(
-			origin: AccountId,
+		fn call<T: pallet_blog::Config>(
+			origin: AccountId32,
 			dest: AccountId,
 			value: Balance,
 			gas_limit: Option<Weight>,
@@ -627,7 +629,9 @@ impl_runtime_apis! {
 			input_data: Vec<u8>,
 		) -> pallet_contracts_primitives::ContractExecResult<Balance> {
 			let gas_limit = gas_limit.unwrap_or(RuntimeBlockWeights::get().max_block);
-			Contracts::bare_call(
+		    // let temporigin: AccountId32 = origin.clone();
+			let _ = CallBlog::<T>::simpleevent(origin.clone());
+			let result = Contracts::bare_call(
 				origin,
 				dest,
 				value,
@@ -636,7 +640,8 @@ impl_runtime_apis! {
 				input_data,
 				true,
 				pallet_contracts::Determinism::Enforced,
-			)
+			);
+			result
 		}
 
 		fn instantiate(
@@ -669,7 +674,8 @@ impl_runtime_apis! {
 			determinism: pallet_contracts::Determinism,
 		) -> pallet_contracts_primitives::CodeUploadResult<Hash, Balance>
 		{
-			Contracts::bare_upload_code(
+
+	        Contracts::bare_upload_code(
 				origin,
 				code,
 				storage_deposit_limit,
