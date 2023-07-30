@@ -26,7 +26,8 @@ use frame_system::{ limits::{BlockLength, BlockWeights},EnsureRoot, EnsureRootWi
 #[cfg(feature = "runtime-benchmarks")]
 use pallet_contracts::NoopMigration;
 use pallet_blog::Pallet as CallBlog;
-use sp_runtime::AccountId32;
+use pallet_contracts::chain_extension::SysConfig;
+
 
 // A few exports that help ease life for downstream crates.
 pub use frame_support::{
@@ -620,8 +621,8 @@ impl_runtime_apis! {
 	#[frame_support::pallet]
 	impl pallet_contracts::ContractsApi<Block, AccountId, Balance, BlockNumber, Hash> for Runtime
 	{
-		fn call<T: pallet_blog::Config>(
-			origin: AccountId32,
+		fn call(
+			origin: AccountId,
 			dest: AccountId,
 			value: Balance,
 			gas_limit: Option<Weight>,
@@ -629,8 +630,6 @@ impl_runtime_apis! {
 			input_data: Vec<u8>,
 		) -> pallet_contracts_primitives::ContractExecResult<Balance> {
 			let gas_limit = gas_limit.unwrap_or(RuntimeBlockWeights::get().max_block);
-		    // let temporigin: AccountId32 = origin.clone();
-			let _ = CallBlog::<T>::simpleevent(origin.clone());
 			let result = Contracts::bare_call(
 				origin,
 				dest,
