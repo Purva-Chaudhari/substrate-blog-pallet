@@ -2,6 +2,7 @@
 members = [
     "node",
     "pallets/blog",
+    "pallets/pocs",
     "runtime",
 ]
 [profile.release]

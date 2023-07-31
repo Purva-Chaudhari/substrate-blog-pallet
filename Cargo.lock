@@ -4476,6 +4476,7 @@ dependencies = [
  "pallet-contracts-primitives",
  "pallet-grandpa",
  "pallet-insecure-randomness-collective-flip",
+ "pallet-pocs",
  "pallet-sudo",
  "pallet-timestamp",
  "pallet-transaction-payment",
@@ -4853,6 +4854,20 @@ dependencies = [
  "scale-info",
  "sp-runtime",
  "sp-std",
+]
+
+[[package]]
+name = "pallet-pocs"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
 ]
 
 [[package]]
