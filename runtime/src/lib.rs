@@ -51,6 +51,9 @@ pub use sp_runtime::{Perbill, Permill};
 /// Import the template pallet.
 pub use pallet_blog;
 
+///import the pocs
+pub use pallet_pocs;
+
 /// An index to a block.
 pub type BlockNumber = u32;
 
@@ -310,6 +313,11 @@ impl pallet_blog::Config for Runtime {
     type BlogPostCommentMaxBytes = BlogPostCommentMaxBytes;
 }
 
+/// Config for pallet-pocs 
+impl pallet_pocs::Config for Runtime{
+	type RuntimeEvent = RuntimeEvent;
+}
+
 parameter_types! {
 	pub const AssetDeposit: Balance = 100 * DOLLARS;
 	pub const ApprovalDeposit: Balance = 1 * DOLLARS;
@@ -398,6 +406,9 @@ construct_runtime!(
 		Contracts: pallet_contracts,
 		// Include the custom logic from the pallet-blog in the runtime.
 		TemplateModule: pallet_blog,
+		Pocs: pallet_pocs,
+
+
 	}
 );
 
@@ -445,6 +456,7 @@ mod benches {
 		[pallet_balances, Balances]
 		[pallet_timestamp, Timestamp]
 		[pallet_blog, TemplateModule]
+		[pallet_pocs, Pocs]
 	);
 }
 

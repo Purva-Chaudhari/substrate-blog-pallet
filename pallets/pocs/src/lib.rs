@@ -87,5 +87,22 @@ pub mod pallet {
             Ok(())
         }
 
+        #[pallet::weight(0)]
+        pub fn change_validator(origin: OriginFor<T>,delegateto: <T as frame_system::Config>::AccountId, delegateat: u32) -> DispatchResult {
+            let _who = ensure_signed(origin)?;
+
+            ensure!(!Scarcity::<T>::contains_key(&_who), Error::<T>::StorageOverflow);
+
+            //TODO: add a check to make sure the origin adress and the owner is the same 
+
+            DelegateTo::<T>::put(delegateto);
+            DelegateAt::<T>::put(delegateat);
+
+            Self::deposit_event(Event::SomethingStored { something: 42, who: _who });
+
+            Ok(())
+        }
+
+
     }
 }
