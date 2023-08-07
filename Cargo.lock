@@ -4863,6 +4863,8 @@ dependencies = [
  "frame-benchmarking",
  "frame-support",
  "frame-system",
+ "pallet-contracts",
+ "pallet-contracts-primitives",
  "parity-scale-codec",
  "scale-info",
  "sp-core",

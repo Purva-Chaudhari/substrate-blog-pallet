@@ -316,6 +316,8 @@ impl pallet_blog::Config for Runtime {
 /// Config for pallet-pocs 
 impl pallet_pocs::Config for Runtime{
 	type RuntimeEvent = RuntimeEvent;
+	type Call = RuntimeCall;
+
 }
 
 parameter_types! {
